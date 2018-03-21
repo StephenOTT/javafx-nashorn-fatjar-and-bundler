@@ -26,7 +26,7 @@ To get started you can start the application with: `./gradlew clean run`
 
 This will download the dependencies and you will see the application load from the `app/hello.js` script.
 
-![app screenshot](.docs/app_screenshot.png)
+![app screenshot](./docs/app_screenshot.png)
 
 When you click on the "Say 'Hello World'" button it will print `Hello World!` in the console
 
