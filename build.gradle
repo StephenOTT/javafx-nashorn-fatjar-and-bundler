@@ -1,0 +1,74 @@
+// buildscript {
+//     dependencies {
+//         classpath \
+//             group: 'de.dynamicfiles.projects.gradle.plugins', \
+//             name: 'javafx-gradle-plugin', \
+//             version: '8.8.2'
+//     }
+//     repositories {
+//         jcenter()
+//         mavenLocal()
+//         mavenCentral()
+//     }
+// }
+
+
+plugins {
+  id 'java'
+  id 'application'
+  id 'com.github.johnrengelman.shadow' version '2.0.2'
+  id "com.moowork.node" version "1.2.0" //https://github.com/srs/gradle-node-plugin
+}
+
+// The JavaFX plugin requires use of the old-style plugin syntax
+// apply plugin: 'javafx-gradle-plugin'
+
+repositories {
+  jcenter()
+}
+
+version = '0.1.0'
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
+mainClassName = 'io.digitalstate.fxlauncher.Launcher'
+
+def watchForChange = 'app/**'
+def doOnChange = './gradlew classes'
+
+dependencies {
+
+}
+
+processResources {
+  // from ('resources') {into 'resources'}
+  from 'app'
+  // from ('node_modules') {into 'node_modules'}
+}
+
+shadowJar {
+  classifier = 'fat'
+}
+
+run {
+  args = ['--entrypoint=app/hello.js'
+          ]
+}
+
+task wrapper(type: Wrapper) {
+  gradleVersion = '4.6.0'
+}
+
+
+
+// jfx {
+//     // minimal requirement for jfxJar-task
+//     mainClass = mainClassName
+//     runAppParameter = "--entrypoint=resources/hello.js"
+//     additionalAppResources = 'resources'
+//     appName = "light"
+//     copyAdditionalAppResourcesToJar = true
+    
+//     // minimal requirement for jfxNative-task
+//     vendor = 'light'
+// }
